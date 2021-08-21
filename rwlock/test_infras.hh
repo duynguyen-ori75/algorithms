@@ -6,7 +6,7 @@ extern "C" {
 
 #include <memory>
 
-#define NO_THREADS 1000
+#define NO_THREADS 10
 
 #define TEST_PACKAGE(locker_type, RLockFunc, RUnlockFunc, WLockFunc, WUnlockFunc) \
   class Counter_##locker_type { \
@@ -23,6 +23,7 @@ extern "C" {
 
 TEST_PACKAGE(SimpleRWLocker, SimpleRLock, SimpleRUnlock, SimpleWLock, SimpleWUnlock);
 TEST_PACKAGE(RWLocker, ReadLock, ReadUnlock, WriteLock, WriteUnlock);
+TEST_PACKAGE(pthread_rwlock_t, pthread_rwlock_rdlock, pthread_rwlock_unlock, pthread_rwlock_wrlock, pthread_rwlock_unlock);
 
 template <class locker_T>
 void *atomicAdd(void *arg) {
